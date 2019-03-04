@@ -4,8 +4,7 @@ const cheerio = require("cheerio");
 const $ = cheerio.load('<h2 class="title">Hello world</h2>');
 
 console.log("fetching data ....");
-url =
-  "https://www.jumia.co.ke/?gclid=Cj0KCQiAtvPjBRDPARIsAJfZz0qIcTCtIX-kledq15gjQgvurxovJIk0y0gDOCrFTPKZnGGbm3uRoSMaAnu8EALw_wcBt";
+url = "";
 
 request(url, { json: false }, (err, res, body) => {
   if (err) {
