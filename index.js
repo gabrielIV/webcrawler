@@ -1,10 +1,10 @@
 const request = require("request");
-
 const cheerio = require("cheerio");
 const $ = cheerio.load('<h2 class="title">Hello world</h2>');
+//add your url here
+const url = "";
 
 console.log("fetching data ....");
-url = "";
 
 request(url, { json: false }, (err, res, body) => {
   if (err) {
@@ -17,7 +17,9 @@ request(url, { json: false }, (err, res, body) => {
   let l = $(body)
     .find(".menu-item")
     .each((n, v) => {
-      let t = $(".nav-subTxt").text();
+      let t = $(v)
+        .find(".nav-subTxt")
+        .text();
       if (!categories[t]) {
         categories[t] = [];
       }
@@ -42,5 +44,14 @@ request(url, { json: false }, (err, res, body) => {
 
       categories[t].push(subcategory);
     });
-  console.log(categories);
+
+  const fs = require("fs");
+
+  fs.writeFile("./output.json", JSON.stringify(categories), function(err) {
+    if (err) {
+      return console.log(err);
+    }
+
+    console.log("The categories were generated .... You're welcome!");
+  });
 });
